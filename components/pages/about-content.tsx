@@ -22,6 +22,17 @@ import {
 import { getAbout, getAboutValues } from "@/lib/services/about";
 import { parseText } from "@/lib/strapi";
 
+interface AboutData {
+  Title?: string;
+  description?: Parameters<typeof parseText>[0];
+  happy_Client?: number | string;
+  project_done?: number | string;
+  satisfaction_Rate?: number | string;
+  years_Experience?: number | string;
+}
+
+type AboutValuesData = Record<`title${number}` | `description${number}`, string | undefined>;
+
 function AnimatedCounter({
   target,
   suffix = "",
@@ -75,8 +86,8 @@ function AnimatedCounter({
 const valueIcons = [Zap, Target, Heart, Clock, Users, Layers];
 
 export function AboutContent() {
-  const [about, setAbout] = useState<any>(null);
-  const [aboutValues, setAboutValues] = useState<any>(null);
+  const [about, setAbout] = useState<AboutData | null>(null);
+  const [aboutValues, setAboutValues] = useState<AboutValuesData | null>(null);
 
   useEffect(() => {
     async function loadAbout() {
@@ -142,7 +153,7 @@ export function AboutContent() {
       <PageHeader
         title="About"
         highlight="Creative"
-        subtitle={about.Title}
+        subtitle={about.Title ?? ""}
       />
 
       <section className="py-16 lg:py-24">

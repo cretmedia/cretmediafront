@@ -1,7 +1,7 @@
 // components/pages/portfolio-grid.tsx (updated section)
 "use client";
 
-import { useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import {
@@ -18,8 +18,6 @@ interface PortfolioGridProps {
 
 export function PortfolioGrid({ initialProjects, categories }: PortfolioGridProps) {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [projects, setProjects] = useState<Service[]>(initialProjects);
-  const [filteredProjects, setFilteredProjects] = useState<Service[]>(initialProjects);
   const filterCategories = ["All", ...categories];
 
   const getLayoutCategoryName = (filterName: string) =>
@@ -31,20 +29,16 @@ export function PortfolioGrid({ initialProjects, categories }: PortfolioGridProp
     return layout?.postion_no ?? Number.MAX_SAFE_INTEGER;
   };
 
-  useEffect(() => {
-    let filtered = projects;
+  const filteredProjects = useMemo(() => {
+    let filtered = initialProjects;
     if (activeFilter !== "All") {
-      filtered = projects.filter((p) => p.service?.Name === activeFilter);
+      filtered = initialProjects.filter((p) => p.service?.Name === activeFilter);
     }
 
-    const layoutCategory = getLayoutCategoryName(activeFilter);
-
-    // Sort filtered projects by position_no for consistent ordering
-    const sortedFiltered = [...filtered].sort((a, b) => {
+    return [...filtered].sort((a, b) => {
       return getProjectPosition(a, activeFilter) - getProjectPosition(b, activeFilter);
     });
-    setFilteredProjects(sortedFiltered);
-  }, [activeFilter, projects]);
+  }, [activeFilter, initialProjects]);
 
   return (
     <section className="relative py-24 lg:py-32">
@@ -55,7 +49,7 @@ export function PortfolioGrid({ initialProjects, categories }: PortfolioGridProp
             Our <span className="italic text-primary">Portfolio</span>
           </h2>
           <p className="mt-4 text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Real projects, real results. See how we've helped brands achieve their goals.
+            Real projects, real results. See how we&apos;ve helped brands achieve their goals.
           </p>
         </div>
 

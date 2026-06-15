@@ -9,6 +9,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { getStrapiBaseUrl } from "@/lib/env";
 
 type ThemeMode = "present" | "api";
 
@@ -32,10 +33,7 @@ interface ColorThemeContextValue {
 const ColorThemeContext = createContext<ColorThemeContextValue | null>(null);
 
 const STORAGE_KEY = "creative-agency-theme-mode";
-const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_API_URL ||
-  process.env.NEXT_PUBLIC_STRAPI_URL ||
-  "http://localhost:1337";
+const STRAPI_URL = getStrapiBaseUrl();
 
 const THEME_VARS = [
   "--bg-color",

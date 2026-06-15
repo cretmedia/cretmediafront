@@ -1,4 +1,7 @@
-const BASE_URL = process.env.NEXT_PUBLIC_STRAPI_URL || "http://localhost:1337";
+import { getStrapiApiUrl, getStrapiBaseUrl } from "@/lib/env";
+
+const BASE_URL = getStrapiBaseUrl();
+const API_URL = getStrapiApiUrl();
 
 export async function fetchAPI(endpoint: string, options: RequestInit = {}) {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
@@ -6,7 +9,7 @@ export async function fetchAPI(endpoint: string, options: RequestInit = {}) {
       "Content-Type": "application/json",
     },
     ...options,
-    cache: "no-store", // disable cache during development
+    next: { revalidate: 60 },
   });
 
   if (!res.ok) {
@@ -27,13 +30,6 @@ export async function fetchAPI(endpoint: string, options: RequestInit = {}) {
 
 //   return res.json();
 // }
-
-// lib/api.ts
-
-
-// lib/api.ts
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:1337/api";
 
 export async function getServiceTypes() {
   try {

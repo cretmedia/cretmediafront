@@ -235,7 +235,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                   Ready to start your project?
                 </h3>
                 <p className="mb-6 text-muted-foreground">
-                  Let's create something amazing together.
+                  Let&apos;s create something amazing together.
                 </p>
                 <Link
                   href="/contact"

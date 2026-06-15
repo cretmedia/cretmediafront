@@ -1,9 +1,7 @@
 import { fetchAPI } from "../api";
+import { getStrapiBaseUrl } from "@/lib/env";
 
-const STRAPI_URL =
-  process.env.NEXT_PUBLIC_STRAPI_API_URL ||
-  process.env.NEXT_PUBLIC_STRAPI_URL ||
-  "http://localhost:1337";
+const STRAPI_URL = getStrapiBaseUrl();
 
 export interface ContactDetail {
   id: number;

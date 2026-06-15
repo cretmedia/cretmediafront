@@ -7,7 +7,16 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-const navLinks = [
+interface NavLink {
+  label: string;
+  href: string;
+  children?: Array<{
+    label: string;
+    href: string;
+  }>;
+}
+
+const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   {

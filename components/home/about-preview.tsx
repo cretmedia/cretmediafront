@@ -9,6 +9,14 @@ import { useEffect, useRef, useState } from "react";
 import { getHomeAbout } from "@/lib/services/home";
 import { parseText } from "@/lib/strapi";
 
+interface HomeAboutData {
+  header?: Parameters<typeof parseText>[0];
+  title?: Parameters<typeof parseText>[0];
+  description?: Parameters<typeof parseText>[0];
+  title2?: Parameters<typeof parseText>[0];
+  description2?: Parameters<typeof parseText>[0];
+}
+
 function AnimatedCounter({
   target,
   suffix = "",
@@ -56,7 +64,7 @@ function AnimatedCounter({
 }
 
 export function HomeAboutPreview() {
-  const [about, setAbout] = useState<any>(null);
+  const [about, setAbout] = useState<HomeAboutData | null>(null);
 
   useEffect(() => {
     async function loadData() {

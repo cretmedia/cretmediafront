@@ -7,6 +7,7 @@ import {
   Film,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { getStrapiBaseUrl } from "@/lib/env";
 
 // ── Services ────────────────────────────────────────────────────────────────
 import { type ClassValue, clsx } from "clsx"
@@ -506,11 +507,7 @@ export interface StrapiResponse<T> {
 }
 
 const API_URL =
-  process.env.NEXT_PUBLIC_STRAPI_API_URL ||
-  process.env.NEXT_PUBLIC_STRAPI_URL ||
-  process.env.STRAPI_API_URL ||
-  process.env.STRAPI_URL ||
-  "http://localhost:1337";
+  getStrapiBaseUrl();
 
 const API_TOKEN = process.env.STRAPI_API_TOKEN;
 

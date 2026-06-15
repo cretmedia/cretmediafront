@@ -1,5 +1,15 @@
-export function parseText(blocks: any[]) {
-  return blocks?.map((block) =>
-    block.children.map((child: any) => child.text).join("")
+interface StrapiTextChild {
+  text?: string;
+}
+
+interface StrapiTextBlock {
+  children?: StrapiTextChild[];
+}
+
+export function parseText(blocks?: StrapiTextBlock[] | null) {
+  return (
+    blocks?.map((block) =>
+      block.children?.map((child) => child.text ?? "").join("") ?? "",
+    ) ?? []
   );
 }

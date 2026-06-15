@@ -90,7 +90,7 @@ export function ServiceDetail({
               Ready to Create Something <span className="text-primary italic">Amazing</span>?
             </h2>
             <p className="mt-4 text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              Let's discuss how we can help your brand achieve similar results.
+              Let&apos;s discuss how we can help your brand achieve similar results.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mt-8">
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>

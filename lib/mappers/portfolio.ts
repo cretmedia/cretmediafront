@@ -1,9 +1,28 @@
-const BASE_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+import { getStrapiBaseUrl } from "@/lib/env";
 
-export function mapPortfolio(data: any[]) {
+const BASE_URL = getStrapiBaseUrl();
+
+interface PortfolioMapperItem {
+  documentId: string;
+  name: string;
+  image?: {
+    url?: string;
+  };
+  service?: {
+    Name?: string;
+  };
+  categories_layout?: Array<{
+    category_name?: string;
+    enable_span?: boolean;
+    col_span?: number;
+    row_span?: number;
+  }>;
+}
+
+export function mapPortfolio(data: PortfolioMapperItem[]) {
   return data.map((item) => {
     const layout = item.categories_layout?.find(
-      (l: any) => l.category_name === "home" && l.enable_span
+      (l) => l.category_name === "home" && l.enable_span,
     );
 
     const col = layout?.col_span || 1;
@@ -13,7 +32,9 @@ export function mapPortfolio(data: any[]) {
       slug: item.documentId,
       title: item.name,
       category: item.service?.Name || "",
-      image: BASE_URL + item.image?.url,
+      image: item.image?.url?.startsWith("http")
+        ? item.image.url
+        : `${BASE_URL}${item.image?.url ?? ""}`,
       span: `lg:col-span-${col} lg:row-span-${row}`,
     };
   });
